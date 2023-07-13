@@ -1,0 +1,188 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+
+body {
+
+     background-image: url(static/images/background/Backgroundindex.jpg);
+        width: 100vw;
+        height: 100vh;
+        background-position: center;
+        background-size: cover;
+        padding: 0 8%;
+        position: relative;
+    }
+   
+   
+button {
+  font-family: "Montserrat", sans-serif;
+  display: inline-block;
+  border: none;
+  outline: none;
+  border-radius: 0.2rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+
+.container {
+  height: 100%;
+  width: 850px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.card {
+  position: relative;
+  padding: 1rem;
+  width: 350px;
+  height: 450px;
+  box-shadow: -1px 15px 30px -12px rgb(32, 32, 32);
+  border-radius: 0.9rem;
+  background-color: rgb(255, 255, 255);
+  color: palevioletred;
+  cursor: pointer;
+  opacity: .7;
+}
+
+.card-blue {
+  background: rgb(255, 255, 255);
+  opacity: .7;
+}
+
+.product-image {
+  height: 230px;
+  width: 100%;
+  transform: translate(0, -1.5rem);
+  transition: transform 500ms ease-in-out;
+  filter: drop-shadow(5px 10px 15px rgba(8, 9, 13, 0.4));
+}
+.product-info {
+  text-align: center;
+}
+
+
+
+.product-info h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  
+}
+.product-info p {
+  margin: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 0.8rem;
+  
+}
+.reg-btn {
+  background-color: palevioletred;
+  padding: 0.6rem 3.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: 300ms ease;
+  border-radius: 5ch;
+  color: #f1f1f1;
+}
+.reg-btn:hover {
+  background-color:#c21b98;
+}
+.fav {
+  box-sizing: border-box;
+  background: #662a2a;
+  padding: 0.5rem 0.5rem;
+  border: 1px solid#000;
+  display: grid;
+  place-items: center;
+}
+
+.svg {
+  height: 25px;
+  width: 25px;
+  fill: #891e1e;
+  transition: all 500ms ease;
+}
+
+.head{
+    color: #f1f1f1;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+
+@media screen and (max-width: 800px) {
+  body {
+    height: auto;
+  }
+  .container {
+    padding: 2rem 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
+
+ </style>
+
+<br><br>
+  <div class="container-fluid"><div class="head"><br>
+    <h2><center>Register as</center></h2><br><br>
+  </div>
+
+    <main class="container">
+        
+        <section class="card">
+          <div class="product-image">
+            <img src="{% static 'images/cardimage/creater-removebg-preview.png' %}" alt="" draggable="false" />
+          </div>
+          <div class="product-info">
+            <h2>Creater</h2>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi, nisi pariatur sunt, a nemo voluptatem ullam nulla molestiae voluptas minima maiores optio nesciunt quo modi eaque, praesentium nobis ad quisquam!</p>
+
+            
+          </div>
+          <div class="btn">
+            <a href="{% url 'creator_registration' %}"><button class="reg-btn">Creater</button></a>
+           
+          </div>
+        </section>
+        <section class="card card-blue">
+          <div class="product-image">
+            <img src="{% static 'images/cardimage/artist1.png' %}" alt="" draggable="false" />
+          </div>
+          <div class="product-info">
+            <h2>Artist</h2>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi, nisi pariatur sunt, a nemo voluptatem ullam nulla molestiae voluptas minima maiores optio nesciunt quo modi eaque, praesentium nobis ad quisquam!</p>
+
+          </div>
+          <div class="btn">
+            <a href="{% url 'artist_registration' %}"><button class="reg-btn">Artist</button></a>
+           
+          </div>
+        </section>
+      </main>
+  </div>
+
+{% endblock %}

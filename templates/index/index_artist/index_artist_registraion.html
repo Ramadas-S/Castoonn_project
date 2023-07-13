@@ -1,0 +1,227 @@
+{% extends 'index/index_creator/index_base_creator.html' %}
+
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+    body{
+   
+    background-image: url({% static 'images\image\bbb.jpg' %});
+    background-position: center;
+    background-size:cover;
+    padding: 0.8%;
+    position:relative;
+}
+
+.registration-form{
+    margin-top: 50px;
+	padding: 50px 0;
+  
+}
+
+.registration-form form{
+    background: linear-gradient(-45deg,#c21b98, #8a126c);
+    opacity:0.7;
+    max-width: 498px;
+    height: 610px;
+    margin: auto;
+    padding: 50px 70px;
+    border-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .item{
+	border-radius: 20px;
+    margin-bottom:20px;
+    padding:7px 20px;
+}
+
+.registration-form .create-account{
+    border-radius:10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5791ff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+.confirm-button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+    }
+.demo1{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom:5px;
+}
+    .fontuser {
+        position: relative;
+
+    }
+    .fontuser i{
+        position: absolute;
+        left: 15px;
+        top: 16px;
+
+    }
+
+    .h3-size {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.center-text {
+  text-align: center;
+}
+ 
+
+@media (max-width: 576px) {
+    .registration-form form{
+        padding: 50px 20px;
+    }
+
+    .registration-form .form-icon{
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+        line-height: 70px;
+    }
+   
+}
+
+h3{
+    color: #fff;
+}
+h5 {
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    font-family:'Open Sans', sans-serif;
+    margin:-50px;
+    margin-right:200px;
+    margin-top: 25px;
+    color: rgb(255, 255, 255);
+    
+}
+h1{
+    color: rgb(255, 255, 255);
+}
+.first{
+    margin-bottom: -80px;
+}
+
+
+
+</style>
+
+    <script>
+        $(document).ready(function(){
+    $('#birth-date').mask('00/00/0000');
+    $('#phone-number').mask('0000-0000');
+   })
+
+
+    </script>
+</head>
+<body>
+
+    <h1><center>CASTOONN</center></h1>
+    <div class="first">
+        <center>
+        <h5>Register as</h5>	
+        <select class="item" name='my_option' style="border-radius: 40px;padding:5px 0px; padding-right:70px; opacity:0.7; " id="my_option" onchange="selection()" >
+            
+            <option value="creator">Creator</option>
+            <option value="artist">Artist</option>
+           
+        </select>
+        </center>  
+    </div>
+
+    <div class="registration-form">        
+            <form method="post" action="{% url 'creator_registration' %}">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                <ul class="errorlist">
+                  {% for field_errors in form.errors.values %}
+                    {% for error in field_errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+                {% endif %}
+
+                <h3>Artist</h3>
+                <div class="form-group demo1">
+                    {{form.name}}
+                    {{form.lastname}}
+                
+                </div>
+                <div class="form-group demo1">
+
+                    {{form.nickname}}
+                    {{form.gender}}
+
+                </div>
+                
+                <div class="form-group demo1">
+                
+                    {{form.date_of_birth}} 
+                    {{form.phone_number}}
+                    
+                    
+                    
+                </div>
+
+                <div class="form-group fontuser">
+                    {{form.phone_otp}}
+                    {{form.email}}
+                    {{form.email_otp}}
+                    {{form.profession}}
+                    {{form.experience}}
+                    {{form.role}}
+                   
+                </div> 
+
+                <div class="form-group sub1">
+                    <center>
+                    <button type="submit" style="border-radius: 10px;padding:10px ;  opacity: 0.9;; color: #fff; background-color: #c21b98;">Create Account</button> 
+                    <center>
+        
+                </div>
+
+            </form>
+        </div>
+
+
+    <script>
+        function selection(){
+            var reg_type=document.getElementById('my_option').value
+            if (reg_type == "creator"){
+                window.location.href = "{% url 'creator_registration'%}"
+            }
+            else{
+                 window.location.href="{% url 'artist_registration'%}" 
+            }
+        }
+    </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
+
+{% endblock  %}

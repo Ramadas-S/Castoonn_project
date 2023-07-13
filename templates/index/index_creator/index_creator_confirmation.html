@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Easiest Way to Add Input Masks to Your Forms</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body{
+   
+            background-image: url({% static 'images\image\bbb.jpg' %});
+            background-position: center;
+            background-size:cover;
+            padding: 0.8%;
+            position:relative;
+        }
+        
+
+.registration-form{
+    margin-top: 50px;
+	padding: 50px 0;
+   
+}
+
+.registration-form form{
+    background: linear-gradient(-45deg,#c21b98, #8a126c);
+    opacity:0.7;
+    max-width: 400px;
+    margin: auto;
+    padding: 50px 70px;
+    border-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.registration-form .form-icon{
+	text-align: center;
+    background-color: #5891ff;
+    border-radius: 50%;
+    font-size: 40px;
+    color: white;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 50px;
+    line-height: 100px;
+}
+
+.registration-form .item{
+	border-radius: 20px;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+}
+
+.registration-form .create-account{
+    border-radius:10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5791ff;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+.confirm-button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+    }
+    .fontuser {
+        position: relative;
+
+    }
+    .fontuser i{
+        position: absolute;
+        left: 15px;
+        top: 16px;
+
+    }
+
+
+@media (max-width: 576px) {
+    .registration-form form{
+        padding: 50px 20px;
+    }
+
+    .registration-form .form-icon{
+        width: 70px;
+        height: 70px;
+        font-size: 30px;
+        line-height: 70px;
+    }
+   
+}
+    </style>
+    <script>
+        $(document).ready(function(){
+    $('#birth-date').mask('00/00/0000');
+    $('#phone-number').mask('0000-0000');
+   })
+    </script>
+</head>
+<body>
+    <div class="registration-form">
+        
+        <form method="post" action="{% url 'index_creator_confirmation' user_id %}">
+            {% csrf_token %}
+            {% include 'alerts.html' %}
+            <div class="form-group fontuser">
+                
+                <input type="text" class="form-control item" name="username" id="username" placeholder=" &nbsp; Username"> 
+               
+                <i class="fa-regular fa-user"></i>
+                
+            </div>
+            <div class="form-group fontuser">
+                
+                 <input type="password" class="form-control item" name="password" id="password" placeholder=" &nbsp;&nbsp;Password">
+                
+                <i class="fa-sharp fa-solid fa-lock"></i>
+            </div>
+            <div class="form-group fontuser">
+                 <input type="password " class="form-control item" name="confirm_password" id="password" placeholder="&nbsp; &nbsp;confirm Password"> 
+               
+                <i class="fa-sharp fa-solid fa-lock"></i>
+            </div>
+            
+            <div class="confirm-button">
+                <button type="button" style="color: #c21b98; background-color: black;"  class="btn btn-block create-account">Cancel</button>
+                <button type="submit" style="color: black; background-color: white"; class="btn btn-block create-account">confirm</button>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="assets/js/script.js">
+        
+        setTimeout(function(){
+            $('#message').fadeOut('slow')
+        },4000
+        )
+    </script>
+</body>
+</html>

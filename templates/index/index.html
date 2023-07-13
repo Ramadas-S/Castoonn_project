@@ -1,0 +1,46 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+
+body {
+
+     background-image: url(static/images/background/Backgroundindex.jpg);
+        width: 100vw;
+        height: 100vh;
+        background-position: center;
+        background-size: cover;
+        padding: 0 8%;
+        position: relative;
+    }
+   
+@media screen and (max-width: 800px) {
+  body {
+    height: auto;
+  }
+  .container {
+    padding: 2rem 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
+
+ </style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 mt-5" style="text-align: center;">
+            <a href="{% url 'login_main'%}" ><button class="btn btn-danger">Get Started</button></a>
+        </div>
+    </div>
+    
+
+</div>
+
+{% endblock %}
