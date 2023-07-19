@@ -1,14 +1,19 @@
 from django.shortcuts import render, redirect
 from .forms import User_RegistrationForm
-from .models import User_Registration
-from django.contrib.auth.models import User
+from .models import User_Registration,Email_Validation
+# from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
-from CastoonnApp import forms
+# from CastoonnApp import forms
+from django.http import HttpResponse
+
+#for mailing functionality
+import random
+import string
+from django.core.mail import send_mail
 
 
 
-# from .forms import ArtistUserForm
 
 
 ######################################################################### <<<<<<<<<< LANDING MODULE >>>>>>>>>>>>>>
@@ -57,12 +62,12 @@ def creator_registration(request):
             )
             user_registration.save()
             user_id = user_registration.pk
-
             return redirect('index_creator_confirmation',user_id=user_id)
     else:
         form = User_RegistrationForm()
         form.initial['role'] = 'user1'
     return render(request,'index\index_creator\index_creator_registraion.html',{'form':form})
+
 
 
 def index_creator_confirmation(request,user_id):
@@ -89,25 +94,27 @@ def index_creator_confirmation(request,user_id):
     return render(request,'index\index_creator\index_creator_confirmation.html',{'user_id':user_id})
 
 
-# def verify_otp(request, user_id):
-#     if request.method == 'POST':
-#         entered_otp = request.POST['otp']
-#         user_registration = User_Registration.objects.get(pk=user_id)
+######################################################################### <<<<<<<<<< Email Verification >>>>>>>>>>>>>>
+def email_send(request,email):
+    digits = string.digits
+    otp = ''.join(random.choices(digits, k=6))
+    user_email = Email_Validation.objects.create(email_temp=email,email_otp_temp=otp)
+    user_email.save()
+    subject = 'Email Verification OTP'
+    message = f'Your OTP is: {otp}'
+    from_email = 'your-email@gmail.com'
+    recipient_list = [email]
+    send_mail(subject, message, from_email, recipient_list)
+    messages.success(request, 'OTP sent to your email id successfully!')
+    return HttpResponse(status=204)
 
-#         if entered_otp == user_registration.email_otp:
-#             user_registration.email_verified = True
-#             user_registration.save()
-
-#             messages.success(request, 'OTP verified successfully.')
-#             return redirect('success_page')
-#         else:
-#             # OTP is incorrect, show an error message
-#             messages.error(request, 'Invalid OTP. Please try again.')
-#             return render(request, 'otp_verification.html', {'user_id': user_id})
-
-#     return render(request, 'otp_verification.html', {'user_id': user_id})
-
-
+def verify_email_otp(request,email,otp):
+    instance = get_object_or_404(Email_Validation,email_otp_temp=otp)
+    if instance.email_temp == email:
+        print("success")
+        messages.success(request, 'Email Verified!')
+        
+    return HttpResponse(status=204)
 
 
 
@@ -130,6 +137,7 @@ def artist_registration(request):
 
 
 def index_artist_confirmation(request,user_id):
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -147,3 +155,11 @@ def index_artist_confirmation(request,user_id):
             return render(request,'index\index_artist\index_artist_confirmation.html',{'error_message':error_message})
 
     return render(request,'index\index_artist\index_artist_confirmation.html',{'user_id':user_id})
+
+
+
+    ##############################
+
+
+
+

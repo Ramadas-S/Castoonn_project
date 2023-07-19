@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-import random
-import string
-from django.core.mail import send_mail
+
 
 # Create your models here.
 
@@ -25,25 +23,17 @@ class User_Registration(models.Model):
     username = models.CharField(max_length=255)
     password = models.CharField(max_length=50)
 
-    # def generate_email_otp(self):
-    #     otp = ''.join(random.choices(string.digits, k=6))
-    #     self.email_otp = otp
-    #     self.save()
-    #     self.send_email_otp()
-    
-    # def send_email_otp(self):
-    #     subject = 'Email Verification OTP'
-    #     message = f'Your OTP for email verification is: {self.email_otp}'
-    #     from_email = 'your_email@example.com'
-    #     recipient_list = [self.email]
-
-    #     send_mail(subject, message, from_email, recipient_list)
- 
-
 
     def __str__(self):
         return self.nickname
 
+# Test 
+class Email_Validation(models.Model):
+    email_temp = models.EmailField()
+    email_otp_temp =models.IntegerField(null=True,blank=True)
+
+    def __str__(self):
+        return self.email_temp + " " + str(self.email_otp_temp) 
 
 
  ###################################################################################<<<<<<<<< Model for Creator registration form>>>>>>>>>>>>>>>>>

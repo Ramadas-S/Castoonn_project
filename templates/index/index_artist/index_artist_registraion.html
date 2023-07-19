@@ -150,19 +150,8 @@ h1{
     </div>
 
     <div class="registration-form">        
-            <form method="post" action="{% url 'creator_registration' %}">
+            <form method="post" action="{% url 'artist_registration' %}">
                 {% csrf_token %}
-
-                {% if form.errors %}
-                <ul class="errorlist">
-                  {% for field_errors in form.errors.values %}
-                    {% for error in field_errors %}
-                      <li>{{ error }}</li>
-                    {% endfor %}
-                  {% endfor %}
-                </ul>
-                {% endif %}
-
                 <h3>Artist</h3>
                 <div class="form-group demo1">
                     {{form.name}}
@@ -187,15 +176,21 @@ h1{
 
                 <div class="form-group fontuser">
                     {{form.phone_otp}}
+                <div class="form-group fontuser demo1">
                     {{form.email}}
+                    <button id="myButton"  style="border-radius: 10px; opacity: 0.9;padding:5px; color: #fff; background-color: #c21b98;">Verify</button>
+                </div> 
+                <div class="form-group fontuser demo1">
                     {{form.email_otp}}
+                    <button id="otpButton" style="border-radius: 10px;padding:5px ;  opacity: 0.9;; color: #fff; background-color: #c21b98;">Verify</button>
+                </div>  
                     {{form.profession}}
                     {{form.experience}}
                     {{form.role}}
                    
                 </div> 
 
-                <div class="form-group sub1">
+                <div class="form-group">
                     <center>
                     <button type="submit" style="border-radius: 10px;padding:10px ;  opacity: 0.9;; color: #fff; background-color: #c21b98;">Create Account</button> 
                     <center>
@@ -216,6 +211,29 @@ h1{
                  window.location.href="{% url 'artist_registration'%}" 
             }
         }
+
+                
+        var myButton = document.getElementById("myButton");
+        myButton.addEventListener("click", function() {
+        event.preventDefault();
+        var inputValue = document.getElementById("email").value;
+        var url = "{% url 'email_send' email='__email__' %}".replace('__email__', encodeURIComponent(inputValue));
+        window.location.href = url;
+    });
+
+    var myButton = document.getElementById("otpButton");
+    myButton.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        var emailValue = document.getElementById("email").value;
+        var otpValue = document.getElementById("email_otp").value;
+
+        var url = "{% url 'verify_email_otp' email='__email__' otp='__otp__' %}"
+                    .replace('__email__', encodeURIComponent(emailValue))
+                    .replace('__otp__', encodeURIComponent(otpValue));
+
+        window.location.href = url;
+    });
     </script>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

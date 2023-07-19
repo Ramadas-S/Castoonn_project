@@ -9,27 +9,27 @@ from django.contrib import messages
 
 class User_RegistrationForm(forms.ModelForm):
 
-        def clean(self):
-            cleaned_data = super().clean()
-            phone_number = cleaned_data.get('phone_number')
-            email = cleaned_data.get('email')
+        # def clean(self):
+        #     cleaned_data = super().clean()
+        #     phone_number = cleaned_data.get('phone_number')
+        #     email = cleaned_data.get('email')
 
-        # Validate phone number
-            if phone_number:
-                pattern = r'^\+?\d{1,3}?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$'
-                if not re.match(pattern, phone_number):
-                    self.add_error('phone_number', 'Invalid phone number')
+        # # Validate phone number
+        #     if phone_number:
+        #         pattern = r'^\+?\d{1,3}?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$'
+        #         if not re.match(pattern, phone_number):
+        #             self.add_error('phone_number', 'Invalid phone number')
 
-            # Validate email address
-            if email:
-                email_validator = EmailValidator()
-                try:
-                    email_validator(email)
-                except ValidationError:
-                    self.add_error('email', 'Invalid email address')
-                    messages.error('Invalid email address')
+        #     # Validate email address
+        #     if email:
+        #         email_validator = EmailValidator()
+        #         try:
+        #             email_validator(email)
+        #         except ValidationError:
+        #             self.add_error('email', 'Invalid email address')
+        #             messages.error('Invalid email address')
 
-            return cleaned_data
+        #     return cleaned_data
 
 
         gender = forms.ChoiceField(choices=[
@@ -57,18 +57,15 @@ class User_RegistrationForm(forms.ModelForm):
                 'nickname': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Nickname'}),
                 'phone_number': forms.TextInput(attrs={'class': 'form-control item','placeholder':'phone number'}),
                 'phone_otp': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Enter phone OTP'}),
-                'email': forms.EmailInput(attrs={'class': 'form-control item','placeholder':'Email'}),
-                'email_otp': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Enter Email OTP'}),
+                'email': forms.EmailInput(attrs={'class': 'form-control item','placeholder':'Email','id':'email'}),
+                'email_otp': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Enter Email OTP','id':'email_otp'}),
                 'experience': forms.NumberInput(attrs={'class': 'form-control item','placeholder':'Experience'}),
-                # 'role': forms.TextInput(attrs={'class': 'form-control item','placeholder':'role','id': 'role-field'}),
-                # 'role': forms.TextInput(attrs={'class': 'form-control item', 'placeholder': 'role', 'value': 'PREFIX_VALUE','id': 'role','name':'role'}),
                 'role': forms.HiddenInput(attrs={'value': 'PREFIX_VALUE','id': 'role-field'}),
 
                 }
             
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-            # self.fields['role'].required = False
             self.fields['username'].required = False
             self.fields['password'].required = False
 

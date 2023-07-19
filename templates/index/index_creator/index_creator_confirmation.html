@@ -110,7 +110,7 @@
         
         <form method="post" action="{% url 'index_creator_confirmation' user_id %}">
             {% csrf_token %}
-            {% include 'alerts.html' %}
+       
             <div class="form-group fontuser">
                 
                 <input type="text" class="form-control item" name="username" id="username" placeholder=" &nbsp; Username"> 
