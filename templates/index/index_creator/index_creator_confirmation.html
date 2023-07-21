@@ -110,6 +110,14 @@
         
         <form method="post" action="{% url 'index_creator_confirmation' user_id %}">
             {% csrf_token %}
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
        
             <div class="form-group fontuser">
                 
@@ -119,15 +127,14 @@
                 
             </div>
             <div class="form-group fontuser">
-                
-                 <input type="password" class="form-control item" name="password" id="password" placeholder=" &nbsp;&nbsp;Password">
-                
+                <input type="password" class="form-control item" name="password" id="password" placeholder=" &nbsp;&nbsp;Password">
                 <i class="fa-sharp fa-solid fa-lock"></i>
             </div>
             <div class="form-group fontuser">
-                 <input type="password " class="form-control item" name="confirm_password" id="password" placeholder="&nbsp; &nbsp;confirm Password"> 
-               
-                <i class="fa-sharp fa-solid fa-lock"></i>
+                <div class="password-toggle">
+                    <input type="password" class="form-control item" name="confirm_password" id="confirm_password" placeholder="&nbsp; &nbsp;Confirm Password">
+                    <i class="fa-sharp fa-solid fa-eye toggle-password"></i>
+                </div>
             </div>
             
             <div class="confirm-button">
@@ -136,14 +143,35 @@
             </div>
         </form>
     </div>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="assets/js/script.js">
         
-        setTimeout(function(){
-            $('#message').fadeOut('slow')
-        },4000
-        )
+  
+  
+        
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password');
+            const confirmInput = document.getElementById('confirm_password');
+            const togglePassword = document.querySelector('.toggle-password');
+    
+            togglePassword.addEventListener('click', function() {
+                if (passwordInput.type === 'password' && confirmInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    confirmInput.type = 'text';
+                    togglePassword.classList.remove('fa-eye');
+                    togglePassword.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    confirmInput.type = 'password';
+                    togglePassword.classList.remove('fa-eye-slash');
+                    togglePassword.classList.add('fa-eye');
+                }
+            });
+        });
     </script>
+    
 </body>
 </html>

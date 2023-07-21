@@ -1,9 +1,8 @@
 from django import forms
 from .models import User_Registration
 from django.core.exceptions import ValidationError
-import re
-from django.core.validators import EmailValidator
-from django.contrib import messages
+from django.forms.widgets import DateInput
+
 
  ###################################################################################<<<<<<<<< Creator Userform >>>>>>>>>>>>>>>>>
 
@@ -38,14 +37,17 @@ class User_RegistrationForm(forms.ModelForm):
             ('Male', 'Male'),
         ], widget=forms.Select(attrs={'class': 'form-control item', 'id': 'Gender', 'placeholder': 'Gender'}))
         
-        profession = forms.ChoiceField(choices=[
-            ('Profession', 'Profession'),
-            ('Actor', 'Actor'),
-            ('Costume_Designer', 'Costume_Designer'),
+        # profession = forms.ChoiceField(choices=[
+        #     ('Profession', 'Profession'),
+        #     ('Actor', 'Actor'),
+        #     ('Costume_Designer', 'Costume_Designer'),
             
-        ], widget=forms.Select(attrs={'class': 'form-control item', 'id': 'profession', 'placeholder': 'Profession'}))
+        # ], widget=forms.Select(attrs={'class': 'form-control item', 'id': 'profession', 'placeholder': 'Profession'}))
 
-        date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control item', 'id': 'birthday', 'placeholder': 'Date of Birth'}))
+        date_of_birth = forms.DateField(
+             widget=forms.DateInput(attrs={'class': 'form-control item', 
+                                           'id': 'birthday', 'placeholder': 'Date of Birth',
+                                           'type': 'date',}))
 
         class Meta:
             model = User_Registration
@@ -59,6 +61,7 @@ class User_RegistrationForm(forms.ModelForm):
                 'phone_otp': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Enter phone OTP'}),
                 'email': forms.EmailInput(attrs={'class': 'form-control item','placeholder':'Email','id':'email'}),
                 'email_otp': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Enter Email OTP','id':'email_otp'}),
+                'profession': forms.TextInput(attrs={'class': 'form-control item','placeholder':'Profession'}),
                 'experience': forms.NumberInput(attrs={'class': 'form-control item','placeholder':'Experience'}),
                 'role': forms.HiddenInput(attrs={'value': 'PREFIX_VALUE','id': 'role-field'}),
 

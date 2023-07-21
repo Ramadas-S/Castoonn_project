@@ -107,9 +107,18 @@
 </head>
 <body>
     <div class="registration-form">
-        <form>
+
+        <form  method="post" action="{% url 'index_artist_confirmation' user_id %}">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% csrf_token %}
             <div class="form-group fontuser">
-                <input type="text" class="form-control item" id="username" placeholder=" &nbsp; Username"> 
+                <input type="text" class="form-control item" name="username" id="username" placeholder=" &nbsp; Username"> 
              
                 
                 <i class="fa-regular fa-user"></i>
@@ -117,20 +126,20 @@
             </div>
             <div class="form-group fontuser">
                 
-            <input type="password" class="form-control item" id="password" placeholder=" &nbsp;&nbsp;Password"> 
+            <input type="password" class="form-control item" name="password" id="password" placeholder=" &nbsp;&nbsp;Password"> 
                
 
                 <i class="fa-sharp fa-solid fa-lock"></i>
             </div>
             <div class="form-group fontuser">
-                <input type="password " class="form-control item" id="password" placeholder="&nbsp; &nbsp;confirm Password">
+                <input type="password " class="form-control item"  name="confirm_password" id="password" placeholder="&nbsp; &nbsp;confirm Password">
                 
                 <i class="fa-sharp fa-solid fa-lock"></i>
             </div>
             
             <div class="confirm-button">
-                <button type="button" style="color: #c21b98; background-color: black;"  class="btn btn-block create-account">Cancel</button>
-                <button type="button" style="color: black; background-color: white"; class="btn btn-block create-account">confirm</button>
+                <button type="button"style="color: #c21b98; background-color: black;"  class="btn btn-block create-account">Cancel</button>
+                <button type="submit" style="color: black; background-color: white"; class="btn btn-block create-account">confirm</button>
             </div>
         </form>
     </div>

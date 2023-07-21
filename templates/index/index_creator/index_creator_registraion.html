@@ -153,6 +153,18 @@ h1{
             <form method="post" action="{% url 'creator_registration' %}">
                 {% csrf_token %}
 
+                {% if messages %}
+                 <div class="alert alert-danger">
+                    <ul>
+                        {% for message in messages  %}
+                        <li>{{message}}</li>
+                        {% endfor %}
+                    </ul>
+
+                 </div>
+                {% endif %}
+                
+
                 <h3>Creator</h3>
                 <div class="form-group demo1">
                     {{form.name}}
@@ -170,9 +182,6 @@ h1{
                 
                     {{form.date_of_birth}} 
                     {{form.phone_number}}
-                    
-                    
-                    
                 </div>
 
                 <div class="form-group fontuser">
@@ -181,11 +190,11 @@ h1{
                 </div> 
                 <div class="form-group fontuser demo1">
                     {{form.email}}  
-                    <button id="myButton"  style="border-radius: 10px; opacity: 0.9;padding:5px; color: #fff; background-color: #c21b98;">Verify</button>
+                    <div id="myButton" class="btn btn-light" onclick="send_mail()">Send OTP</div>
                 </div> 
                 <div class="form-group fontuser demo1">
                     {{form.email_otp}} 
-                    <button id="otpButton" style="border-radius: 10px;padding:5px ;  opacity: 0.9;; color: #fff; background-color: #c21b98;">Verify</button>
+                    <div id="otpButton" class="btn btn-light" onclick="verify_mail()" >Verify</div>
                 </div> 
                     {{form.profession}}
                     {{form.experience}}
@@ -214,41 +223,68 @@ h1{
                  window.location.href="{% url 'artist_registration'%}" 
             }
         }
-
+    // Email Otp Send
+    function send_mail(){
+        var inputValues= document.getElementById("email").value
         
-        var myButton = document.getElementById("myButton");
-        myButton.addEventListener("click", function() {
-        event.preventDefault();
-        var inputValue = document.getElementById("email").value;
-        var url = "{% url 'email_send' email='__email__' %}".replace('__email__', encodeURIComponent(inputValue));
-        window.location.href = url;
+        if(inputValues == ""){
+            alert("Enter Email id")
+        }else{
+        alert("Please Wait a Moment")
+        $.ajax({
+                type: "GET",
+                url: "{% url 'email_send' %}",
+                data: {
+                 
+                    inputValue: inputValues
+                },
+                success: function (response) {
+                    console.log(response)
+                    alert("OTP Number Will Get From your provided Email Id")
+                    
+                }
+            });
+        }
+    }
+
+    //Otp Verification
+    function verify_mail(){
+        var emailValues = document.getElementById("email").value;
+        var otpValues = document.getElementById("email_otp").value;
+        if(otpValues == ""){
+            alert("Enter Otp")
+        }else{
+        $.ajax({
+                type: "GET",
+                url: "{% url 'verify_email_otp' %}",
+                data: {
+                    emailValue: emailValues,
+                    otpValue: otpValues,
+                    
+                },
+                success: function (response) {
+                    data = response.result
+                    alert(`${data}`)
+                    
+                }
+            });
+        }
+    }
+
+ //  format  for date input fields.
+    $(document).ready(function() {
+        $('#birthday').datepicker({
+            format: 'yyyy-mm-dd', 
+            autoclose: true,
+            todayHighlight: true,
+        });
     });
-
-    var myButton = document.getElementById("otpButton");
-    myButton.addEventListener("click", function(event) {
-        event.preventDefault();
-
-        var emailValue = document.getElementById("email").value;
-        var otpValue = document.getElementById("email_otp").value;
-
-        var url = "{% url 'verify_email_otp' email='__email__' otp='__otp__' %}"
-                    .replace('__email__', encodeURIComponent(emailValue))
-                    .replace('__otp__', encodeURIComponent(otpValue));
-
-        window.location.href = url;
-    });
-
-     
-
-        
-
 
     </script>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     <script src="assets/js/script.js"></script>
-</body>
-</html>
+
 
 {% endblock  %}
