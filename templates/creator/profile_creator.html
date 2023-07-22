@@ -1,0 +1,410 @@
+
+<style>
+
+  html {
+      background: rgb(0, 0, 0);
+     
+      font-family: sans-serif;
+    }
+    
+    *,
+    ::after,
+    ::before {
+      box-sizing: border-box;
+    }
+    
+    @keyframes slide-up2 {
+      0% {
+        transform: translateY(0.5em);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes glow-load {
+      0% {
+        box-shadow: none;
+      }
+      100% {
+        box-shadow: 0px 0px 50px  #c21b98;
+      }
+    }
+    
+    @keyframes continuous-glow {
+      0% {
+        box-shadow: 0 0 5px rgba(206, 60, 177, 0.39),
+          inset 0 0 5px rgba(129, 27, 105, 0.356), 0 2px 0 #000;
+      }
+      100% {
+        box-shadow: 0 0 20px rgba(183, 38, 159, 0.6),
+          inset 0 0 10px rgba(173, 55, 143, 0.4), 0 2px 0 #000;
+      }
+    }
+    
+    @keyframes blur-load {
+      0% {
+        opacity: 0;
+        filter: blur(0.2em);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+      }
+    }
+    
+    .form-container {
+      margin: auto;
+      width: 90%;
+    }
+    
+    .form-item,
+    .textarea-div {
+      opacity: 0;
+    }
+    
+    .form-item1 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.3s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    
+    .form-item2 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.4s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    
+    .form-item3 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.5s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    
+    .form-item4 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item5 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item6 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item7 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item8 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    .form-item9 {
+      animation: 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) 0.6s 1 slide-up2;
+      animation-fill-mode: forwards;
+    }
+    form {
+      background-color: rgb(12, 12, 12);
+      border-radius: 1.25em;
+      padding: 1.5em;
+      animation: 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0.7s 1 glow-load;
+      animation-fill-mode: forwards;
+    }
+    
+    form label {
+      color: rgb(191, 191, 191);
+    }
+    
+    option,
+    select,
+    input,
+    .textarea-div textarea {
+      background: #1b1a1a;
+      color: rgb(255, 229, 195);
+    }
+    
+    .form-header {
+      text-align: center;
+      font-size: 28px;
+      padding: 0;
+      margin-bottom: 1.25em;
+      color:  #c21b98;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.35em;
+      margin-top: 0.35em;
+    }
+    
+    input:not(.btn),
+    select {
+      padding: 0.625em 1em;
+      width: 100%;
+      outline: 0;
+      margin-bottom: 1.25em;
+      border-radius: 1.25em;
+      border: 0;
+    }
+    
+    .textarea-div {
+      width: 100%;
+    }
+    
+    textarea {
+      padding: 10px;
+      width: 100%;
+      outline: 0;
+      margin-bottom: 20px;
+      border-radius: 20px;
+      border: 0;
+      font-size: 14px;
+      height: 100px;
+    }
+    
+    .btn-container {
+      margin: auto;
+      padding-bottom: 1em;
+    }
+    
+    .form-btn {
+      background: rgb(12, 12, 12);
+      border: none;
+      margin-top: 1em;
+      font-size: 20px;
+      padding: 0.5em;
+    }
+    
+    .btn-glow {
+      animation: 0.5s ease-out 0s 1 blur-load;
+      border-radius: 2em;
+      color: white;
+      transition: 0.4s;
+    }
+    
+    .btn-glow:hover {
+      box-shadow: 0px 0px 10px #f0860c;
+    }
+    
+    .form-btn:hover {
+      background: #c21b98;
+    }
+    
+    .form-container input:focus,
+    .form-container select:focus,
+    .form-container textarea:focus {
+      animation: continuous-glow 800ms ease-out infinite alternate;
+      box-shadow: 0 0 5px #f0860c, inset 0 0 5px #f0860c, 0 2px 0 #000;
+      color: rgb(255, 229, 195);
+    }
+    
+   /* Custom CSS for image preview */
+  .img-preview {
+    max-width: 50%;
+    max-height: 100px;
+    border-radius: 10px;
+    position: absolute;
+    top:-100px;
+    left:0px;
+    overflow: hidden;
+    
+  }
+  .form{
+    margin-top:100px;
+  }
+
+    @media only screen and (min-width: 35.8em) {
+      .form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+    
+      .form-item {
+        width: 45%;
+      }
+    
+      .form-container {
+        padding: 5em 0;
+        width: 80%;
+      }
+   
+    }
+    
+    @media only screen and (min-width: 60.625em) {
+      .form-container {
+        padding: 8em 0;
+        width: 70%;
+      }
+  
+
+
+      }
+
+    
+</style>
+<section class="form-container">
+  <form action = "{% url 'profile_creator' %}" method = 'POST' enctype="multipart/form-data">
+     {% csrf_token %}
+  <h1 class="form-header">CREATOR PROFILE CREATION</h1>
+
+
+  
+
+  <div class="form">
+<!-- Image Upload -->
+
+  <div class="form-item  form-item1">
+    <label for="image">Upload Image</label>
+    <img src="#" alt="Image Preview" class="img-preview d-none">
+    <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+    
+  </div>
+<!-- Image end -->
+
+    <div class="form-item form-item1">
+      <label for="firstname">First Name</label>
+      <input id="firstname" type="text" name="firstname" value="{{user.name}}"/>
+    </div>
+
+    <div class="form-item form-item1">
+      <label for="lastname">Last Name</label>
+      <input for="lastname" type="text" name="lastname" value="{{user.lastname}}"/>
+    </div>
+
+    
+    <div class="form-item form-item1">
+      <label for="address">Address</label>
+      <input for="address" type="text" name="address" value="{{user.lastname}}"/>
+    </div>
+
+    
+
+    <div class="form-item form-item2">
+      <label for="phonenumber">Phone Number</label>
+      <input id="phonenumber" type="tel" name="phonenumber" value="{{user.phone_number}}"/>
+    </div>
+
+    <div class="form-item form-item2">
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" value="{{user.email}}"/>
+    </div>
+
+    <div class="form-item form-item3">
+      <label for="gender ">Gender</label>
+      <select name="gender">
+        <option value="{{user.gender}}" selected>{{user.gender}}</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+       
+      </select>
+    </div>
+
+    <div class="form-item form-item3">
+      <label for=" date_of_birth">Date of Birth</label>
+      <input id="dob" type="date" name="date_of_birth" value="{{user.date_of_birth| date:'Y-m-d'}}"/>
+    </div>
+
+    <div class="form-item form-item4">
+      <label for="marital_status">Marital Status</label>
+      <select name="marital_status">
+        <option value="Single">Single</option>
+        <option value="Married">Married</option>
+        <option value="Divorced">Divorced</option>  
+       
+      </select></div>
+
+      <div class="form-item form-item4">
+          <label for="profection">Profession </label>
+          <input id="Profection" type="text" name="profection" value="{{user.profession}}"/>
+       </div>
+
+       <div class="form-item form-item5">
+          <label for="height">Height</label>
+          <input id="height" type="number" name="height" value="0" />
+       </div>
+       <div class="form-item form-item4">
+          <label for="weight">Weight</label>
+          <input id="weight" type="number" value="0" name="weight" />
+       </div>
+       <div class="form-item form-item5">
+          <label for="interests">Interests</label>
+          <input id="interests" type="text" name="interests" />
+       </div>
+       <div class="form-item form-item5">
+          <label for="hobbies">Hobbies</label>
+          <input id="hobbies" type="text" name="hobbies" />
+       </div>
+
+       <div class="form-item form-item6">
+          <label for="passions">Passions</label>
+          <input id="passions" type="text" name="passions" />
+       </div>
+
+      <div class="form-item form-item6">
+          <label for="goals">Goals</label>
+          <input id="goals" type="text" name="goals" />
+       </div>
+
+
+       <div class="form-item form-item7">
+          <label for="achievements">Achievements</label>
+          <input id="achievements" type="text" name="achievements" />
+       </div>
+       <div class="form-item form-item7">
+          <label for="social_media_links">Social Media Links</label>
+          <input id="social_media_links" type="text" name="social_media_links" />
+       </div>
+       <div class="form-item form-item8">
+          <label for="skills">Skills</label>
+          <input id="skills" type="text" name="skills" />
+       </div>
+
+       <div class="form-item form-item8">
+          <label for="awards">Awards</label>
+          <input id="awards" type="text" name="awards" />
+       </div>
+
+    <div class="textarea-div form-item9">
+      <label for="message">More About You</label>
+      <textarea id="message" type="text" name="message" placeholder="What about you ?"></textarea>
+    </div>
+    <div class="btn-container">
+      <input id="submit" class="btn btn-glow form-btn" type="submit" name="submit" value="Submit" />
+    </div>
+  </>
+</form>
+</section>
+
+<script>
+// JavaScript for image preview
+const imageInput = document.getElementById('image');
+const imagePreview = document.querySelector('.img-preview');
+
+imageInput.addEventListener('change', function() {
+  const file = this.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', function() {
+      imagePreview.src = reader.result;
+      imagePreview.classList.remove('d-none');
+    });
+
+    reader.readAsDataURL(file);
+  } else {
+    imagePreview.src = '#';
+    imagePreview.classList.add('d-none');
+  }
+});
+</script>
+
+
+
+
+
+
+

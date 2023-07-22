@@ -36,11 +36,35 @@ class Email_Validation(models.Model):
         return self.email_temp + " " + str(self.email_otp_temp) 
 
 
- ###################################################################################<<<<<<<<< Model for Creator registration form>>>>>>>>>>>>>>>>>
+ ###################################################################################<<<<<<<<< Model for Creator Profile form>>>>>>>>>>>>>>>>>
 
+class Creator_Profile(models.Model):
+    user = models.ForeignKey(User_Registration, on_delete=models.SET_NULL, null=True, blank=True)
+    user_image = models.ImageField(upload_to='photos/', blank=True)
+    firstname = models.CharField(max_length=255,blank=True,null=True)
+    lastname = models.CharField(max_length=255,blank=True,null=True)
+    address = models.TextField(blank=True,null=True)
+    phonenumber = models.CharField(max_length=20)
+    email = models.EmailField()
+    gender = models.CharField(max_length=255,blank=True,null=True)
+    date_of_birth = models.DateField(null=True)
+    marital_status = models.CharField(max_length=255,blank=True,null=True)
+    profection = models.CharField(max_length=255,blank=True,null=True)
+    height = models.IntegerField(null=True,blank=True)
+    weight = models.IntegerField(null=True,blank=True)
+    interests = models.TextField(blank=True,null=True)
+    hobbies = models.TextField(blank=True,null=True)
+    passions = models.TextField(blank=True,null=True)
+    goals = models.TextField(blank=True,null=True)
+    achievements = models.TextField(blank=True,null=True)
+    social_media_links = models.TextField(blank=True,null=True)
+    skills = models.TextField(blank=True,null=True)
+    awards = models.TextField(blank=True,null=True)
+    more_abt_u = models.TextField(blank=True,null=True)
 
-
-
+    
+    def __str__(self):
+        return f"{self.firstname}"
 
 
  ###################################################################################<<<<<<<<< Model for Artist registration form >>>>>>>>>>>>>>>>>

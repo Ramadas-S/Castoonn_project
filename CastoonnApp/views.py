@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import User_RegistrationForm
-from .models import User_Registration,Email_Validation
+from .models import User_Registration,Email_Validation,Creator_Profile
 # from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
@@ -86,7 +86,8 @@ def index_creator_confirmation(request,user_id):
                 creator_object.password = password
                 creator_object.save()
                 messages.success(request, 'Thank you for registering with us.')
-            return redirect('login_main')
+                request.session['userid'] = user_id
+            return redirect('profile_creator')
         else:
             messages.error(request, ' Password and Confirm Password are not matching. Please verify it.')
             return redirect('index_creator_confirmation', user_id=user_id)
@@ -163,8 +164,66 @@ def index_artist_confirmation(request,user_id):
             return redirect('index_artist_confirmation', user_id=user_id)
 
     return render(request,'index\index_artist\index_artist_confirmation.html',{'user_id':user_id})
-    ##############################
+######################################################################### <<<<<<<<<< CREATOR PROFILE MODULE >>>>>>>>>>>>>>>>
 
+def profile_creator(request):
+    pk=request.session['userid']
+    user = get_object_or_404(User_Registration,pk=pk)
+    if request.method == 'POST':
+        form_data = request.POST.dict()
+        user_image = form_data.get('image', None)
+        firstname = form_data.get('firstname', None)
+        lastname = form_data.get('lastname', None)
+        address = form_data.get('address', None)
+        phonenumber = form_data.get('phonenumber', None)
+        email = form_data.get('email', None)
+        gender = form_data.get('gender', None)
+        date_of_birth = form_data.get('date_of_birth', None)
+        marital_status = form_data.get('marital_status', None)
+        profection = form_data.get('profection', None)
+        height = form_data.get('height', None)
+        weight = form_data.get('weight', None)
+        interests = form_data.get('interests', None)
+        hobbies = form_data.get('hobbies', None)
+        passions = form_data.get('passions', None)
+        goals = form_data.get('goals', None)
+        achievements = form_data.get('achievements', None)
+        social_media_links = form_data.get('social_media_links', None)
+        skills = form_data.get('skills', None)
+        awards = form_data.get('awards', None)
+        more_abt_u = form_data.get('message', None)
+        
+        new_creator_profile = Creator_Profile(
+            user = user,
+            user_image=user_image,
+            firstname=firstname,
+            lastname=lastname,
+            address=address,
+            phonenumber=phonenumber,
+            email=email,
+            gender=gender,
+            date_of_birth=date_of_birth,
+            marital_status=marital_status,
+            profection=profection,
+            height=height,
+            weight=weight,
+            interests=interests,
+            hobbies=hobbies,
+            passions=passions,
+            goals=goals,
+            achievements=achievements,
+            social_media_links=social_media_links,
+            skills=skills,
+            awards=awards,
+            more_abt_u=more_abt_u,
+        )
+        new_creator_profile.save()
+        return redirect('user_type')
+    
+    context={
+        'user':user
+    }
 
+    return render(request,'creator\profile_creator.html',context)
 
 

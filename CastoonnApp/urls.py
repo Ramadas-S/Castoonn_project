@@ -16,7 +16,7 @@ urlpatterns = [
     path('index_creator_confirmation/<int:user_id>/',views.index_creator_confirmation,name='index_creator_confirmation'),
     path('artist_registration/',views.artist_registration,name='artist_registration'),
     path('index_artist_confirmation/<int:user_id>/',views.index_artist_confirmation,name='index_artist_confirmation'),
-    # path('emailverification/<email>/',views.emailverification,name='emailverification'),
+    path('profile_creator/',views.profile_creator,name='profile_creator'),
 
     ################################################################################### <<<<<<<<< Artist MODULE >>>>>>>>>>>>>>>>>
     
