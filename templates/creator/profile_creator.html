@@ -200,18 +200,20 @@
     }
     
    /* Custom CSS for image preview */
+
+
   .img-preview {
-    max-width: 50%;
-    max-height: 100px;
+    width:200px;
     border-radius: 10px;
     position: absolute;
-    top:-100px;
-    left:0px;
+    top:-200px;
+    left:280px;
     overflow: hidden;
-    
+    transition:.5s all linear;
   }
+  
   .form{
-    margin-top:100px;
+    margin-top:250px;
   }
 
     @media only screen and (min-width: 35.8em) {
@@ -229,6 +231,8 @@
         padding: 5em 0;
         width: 80%;
       }
+      
+
    
     }
     
@@ -237,10 +241,27 @@
         padding: 8em 0;
         width: 70%;
       }
+
   
 
 
       }
+
+      /* Styles for screens with a width of 60.625 ems or larger */
+@media (max-width: 60.625em) {
+  /* Your CSS rules here */
+  .img-preview {
+  
+    position: absolute;
+    top:-230px;
+    left:90px;
+
+  }
+  .form{
+    margin-top:250px;
+  }
+}
+
 
     
 </style>
@@ -257,7 +278,7 @@
 
   <div class="form-item  form-item1">
     <label for="image">Upload Image</label>
-    <img src="#" alt="Image Preview" class="img-preview d-none">
+    <img src="https://via.placeholder.com/150" alt="Image Preview" class="img-preview d-none">
     <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
     
   </div>
@@ -276,7 +297,7 @@
     
     <div class="form-item form-item1">
       <label for="address">Address</label>
-      <input for="address" type="text" name="address" value="{{user.lastname}}"/>
+      <input for="address" type="text" name="address" value=" "/>
     </div>
 
     

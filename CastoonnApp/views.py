@@ -167,11 +167,17 @@ def index_artist_confirmation(request,user_id):
 ######################################################################### <<<<<<<<<< CREATOR PROFILE MODULE >>>>>>>>>>>>>>>>
 
 def profile_creator(request):
+    if request.session.has_key('userid'):
+        pass
+    else:
+        return redirect('/')
+    
     pk=request.session['userid']
     user = get_object_or_404(User_Registration,pk=pk)
+
     if request.method == 'POST':
         form_data = request.POST.dict()
-        user_image = form_data.get('image', None)
+        user_image = request.FILES.get('image', None)
         firstname = form_data.get('firstname', None)
         lastname = form_data.get('lastname', None)
         address = form_data.get('address', None)
